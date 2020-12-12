@@ -1,0 +1,14 @@
+---
+# Defining a VM and making is autostart with host. VM will be off after this task
+- name: define vm from xml and set autostart
+  community.libvirt.virt:
+    command: define
+    xml: "{{ lookup('template', 'kvm.j2') }}"
+    autostart: yes
+  with_items:
+    - "{{ nodes }}"
+
+
+
+
+...
