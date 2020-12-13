@@ -39,7 +39,7 @@
     --vcpus 4
     --os-type linux
     --os-variant rhel8.3
-    --network network=br0,mac={{ item.mac }}
+    --network network=default,mac={{ item.mac }}
     --boot uefi
     --noautoconsole"
   with_items:
