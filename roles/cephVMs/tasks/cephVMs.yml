@@ -8,11 +8,11 @@
       - python3-lxml
     state: latest
 
-- name: define vm from xml and set autostart
+- name: Create vm from xml and set autostart
   virt:
     command: create
     xml: "{{ lookup('template', 'kvm.j2') }}"
-    autostart: yes
+    autostart: "yes"
   with_items:
     - "{{ nodes }}"
 
