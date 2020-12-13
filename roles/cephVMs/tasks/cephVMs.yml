@@ -12,7 +12,6 @@
   virt:
     command: create
     xml: "{{ lookup('template', 'kvm.j2') }}"
-    autostart: "yes"
   with_items:
     - "{{ nodes }}"
 
