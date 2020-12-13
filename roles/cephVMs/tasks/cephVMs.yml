@@ -10,7 +10,7 @@
 
 - name: define vm from xml and set autostart
   virt:
-    command: define
+    command: create
     xml: "{{ lookup('template', 'kvm.j2') }}"
     autostart: yes
   with_items:
