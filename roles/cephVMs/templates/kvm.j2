@@ -1,5 +1,5 @@
 <domain type="kvm">
-  <name>test</name>
+  <name>{{ item.name }}</name>
   <uuid>d05da8e9-08d3-4bdf-ad52-ccf8ad67a90c</uuid>
   <metadata>
     <libosinfo:libosinfo xmlns:libosinfo="http://libosinfo.org/xmlns/libvirt/domain/1.0">
@@ -37,7 +37,7 @@
     </disk>
     <disk type='block' device='disk'>
       <driver name='qemu' type='raw' />
-      <source dev='/dev/{{disk}}' />
+      <source dev='/dev/{{ item.disk }}' />
       <target dev='vdb' bus='virtio' />
     </disk>
     <disk type="file" device="cdrom">
@@ -49,7 +49,7 @@
     <controller type="usb" model="qemu-xhci" ports="15"/>
     <interface type="network">
       <source network="default"/>
-      <mac address="{{mac}}}}"/>
+      <mac address="{{ item.mac }}"/>
       <model type="virtio"/>
     </interface>
     <console type="pty"/>
