@@ -4,10 +4,10 @@ rhel_iso: /home/rhel8.3.iso
 nodes:
   - name: "ceph1"
     mac: "52:54:00:ab:5a:53"
-    osd_disk: "sdb"
+    disk: "sdb"
   - name: "ceph2"
     mac: "52:54:00:ac:5a:53"
-    osd_disk: "sdc"
+    disk: "sdc"
   - name: "ceph3"
     mac: "52:54:00:ad:5a:53"
-    osd_disk: "sdd"
+    disk: "sdd"
