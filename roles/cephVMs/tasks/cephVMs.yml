@@ -34,6 +34,7 @@
     --name {{ item.name }}
     --cdrom /home/rhel8.3.iso
     --disk path=/home/{{ item.name }}.qcow2,size=200
+    --disk path=/dev/{{ item.disk }}
     --ram 16384
     --cpu host
     --vcpus 4
@@ -41,7 +42,8 @@
     --os-variant rhel8.3
     --network network=default,mac={{ item.mac }}
     --boot uefi
-    --noautoconsole"
+    --noautoconsole
+    --autostart"
   with_items:
     - "{{ nodes }}"
 ...
