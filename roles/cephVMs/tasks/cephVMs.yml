@@ -1,29 +1,47 @@
 ---
-# Defining a VM and making is autostart with host. VM will be off after this task
-- name: Install needed packages
+# tasks file for cephVMs
+- name: Install virt-install
   dnf:
     name:
       - libvirt
       - python3-libvirt
       - python3-lxml
+      - virt-install
     state: latest
-
-- name: create domains
-  virt:
-    command: create
-    name: "{{ item.name }}"
+  
+- name: Clean out old bootstrap
+  command: "virsh destroy {{ item.name }}"
   with_items:
     - "{{ nodes }}"
+  ignore_errors: yes
 
-- name: define vm from xml and set autostart
-  virt:
-    command: define
-    xml: "{{ lookup('template', 'kvm.j2') }}"
-    autostart: yes
+- name: Clean out old bootstrap
+  command: "virsh undefine --nvram {{ item.name }}"
   with_items:
     - "{{ nodes }}"
+  ignore_errors: yes
 
+- name: Remove QCOWs
+  file:
+    path: "/home/{{ item.name }}.qcow2"
+    state: absent
+  with_items:
+    - "{{ nodes }}"
+  ignore_errors: yes
 
-
-
+- name: Setup OCP Bootstrap & Master VMs
+  command: "virt-install
+    --name {{ item.name }}
+    --cdrom /home/rhel8.3.iso
+    --disk path=/home/{{ item.name }}.qcow2,size=200
+    --ram 16384
+    --cpu host
+    --vcpus 4
+    --os-type linux
+    --os-variant rhel8.3
+    --network network=br0,mac={{ item.mac }}
+    --boot uefi
+    --noautoconsole"
+  with_items:
+    - "{{ nodes }}"
 ...
