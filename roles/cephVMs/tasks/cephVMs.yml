@@ -1,5 +1,13 @@
 ---
 # Defining a VM and making is autostart with host. VM will be off after this task
+- name: Install needed packages
+  dnf:
+    name:
+      - libvirt
+      - python3-libvirt
+      - python3-lxml
+    state: latest
+
 - name: define vm from xml and set autostart
   community.libvirt.virt:
     command: define
