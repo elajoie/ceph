@@ -29,7 +29,7 @@
     - "{{ nodes }}"
   ignore_errors: yes
 
-- name: Setup OCP Bootstrap & Master VMs
+- name: Setup VMs
   command: "virt-install
     --name {{ item.name }}
     --cdrom /home/rhel8.3.iso
